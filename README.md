@@ -1,86 +1,86 @@
 
-
 ---
 
-# 🕵️‍♀️ Credit Card Fraud Detection Using Unsupervised Learning
+# 🕵️‍♂️ Credit Card Fraud Detection Using Unsupervised Learning
 
-Bu proje, **gözetimsiz makine öğrenimi teknikleri** kullanarak kredi kartı işlemlerindeki dolandırıcılıkları tespit etmeyi amaçlamaktadır. Özellikle **Isolation Forest** ve **Local Outlier Factor (LOF)** algoritmaları kullanılarak normal ve anormal işlemler ayrıştırılmıştır.
+This project focuses on detecting fraudulent credit card transactions using **unsupervised machine learning** techniques. Specifically, it applies **Isolation Forest** and **Local Outlier Factor (LOF)** to identify anomalies without relying on labeled training data.
 
-## 📁 Veri Kümesi
+## 📁 Dataset
 
-Kullanılan veri seti: [`creditcard.csv`](https://www.kaggle.com/datasets/mlg-ulb/creditcardfraud)
+Source: [`creditcard.csv`](https://www.kaggle.com/datasets/mlg-ulb/creditcardfraud)
 
-* 284,807 işlem kaydı
-* 30 özellik (V1–V28 PCA dönüşümlü), işlem zamanı, işlem miktarı ve hedef değişken: `Class`
-* `Class` değişkeni:
+* Contains 284,807 transactions
+* 30 features (V1–V28 are PCA-transformed), along with `Time`, `Amount`, and `Class` (target variable)
+* Target `Class`:
 
-  * `0` → Normal işlem
-  * `1` → Dolandırıcılık işlemi
+  * `0`: Legitimate transaction
+  * `1`: Fraudulent transaction
 
-## 🔍 Proje Özeti
+## 🔍 Project Overview
 
-### 1. **Veri Keşfi & Görselleştirme**
+### 1. **Data Exploration & Visualization**
 
-* Sınıf dağılımı incelendi (Veri çok dengesiz: yalnızca %0.17'si dolandırıcılık).
-* Saatlik işlem yoğunluğu görselleştirildi.
-* Tüm öznitelikler için dolandırıcılık ve normal dağılımlar karşılaştırıldı.
+* Examined class distribution (highly imbalanced: only 0.17% fraud)
+* Plotted transaction frequency by hour
+* Compared feature distributions between fraudulent and normal transactions
 
-### 2. **Öznitelik İşleme**
+### 2. **Feature Engineering**
 
-* `Time` ve `Amount` öznitelikleri PCA kullanılarak `V29` ve `V30` adında iki yeni bileşene dönüştürüldü.
-* İstatistiksel anlamlı öznitelikler için Z-test uygulandı.
-* Anlamlı olan öznitelikler seçilerek modelleme için kullanıldı.
+* Transformed `Time` and `Amount` using PCA to generate `V29` and `V30`
+* Applied Z-test to identify statistically significant features
+* Selected significant features for modeling
 
-### 3. **Modelleme**
+### 3. **Modeling**
 
 #### Isolation Forest
 
-* **Normal işlem tespiti doğruluğu:** 95.78%
-* **Dolandırıcılık tespiti doğruluğu:** 86.38%
+* **Accuracy for detecting normal transactions:** 95.78%
+* **Accuracy for detecting fraud transactions:** 86.38%
 
 #### Local Outlier Factor (LOF)
 
-* **Normal işlem tespiti doğruluğu:** 98.75%
-* **Dolandırıcılık tespiti doğruluğu:** 23.58%
+* **Accuracy for detecting normal transactions:** 98.75%
+* **Accuracy for detecting fraud transactions:** 23.58%
 
-## 🛠 Kullanılan Kütüphaneler
+## 🛠 Libraries Used
 
 * `pandas`, `numpy`, `matplotlib`, `seaborn`
 * `sklearn`: PCA, IsolationForest, LocalOutlierFactor
 
-## 📈 Sonuç
+## 📈 Results
 
-* **Isolation Forest**, dolandırıcılık tespiti konusunda **LOF'a göre daha başarılı** sonuçlar verdi.
-* Verinin dengesiz yapısı nedeniyle gözetimsiz öğrenme yöntemleri, sınırlı ama değerli sonuçlar sundu.
+* **Isolation Forest** outperformed LOF in detecting fraudulent transactions.
+* Due to class imbalance, unsupervised learning offered a valuable approach without requiring labeled training data.
 
-## 🚀 Nasıl Çalıştırılır?
+## 🚀 How to Run
 
-1. Bu repoyu klonlayın:
+1. Clone the repository:
 
    ```bash
-   git clone https://github.com/kullaniciadi/credit-card-fraud-unsupervised.git
+   git clone https://github.com/yourusername/credit-card-fraud-unsupervised.git
    cd credit-card-fraud-unsupervised
    ```
 
-2. Gerekli kütüphaneleri yükleyin:
+2. Install required packages:
 
    ```bash
    pip install -r requirements.txt
    ```
 
-3. Notebook'u çalıştırın:
+3. Run the notebook:
 
    ```bash
    jupyter notebook
    ```
 
-## 📌 Notlar
+## 📌 Notes
 
-* Projede **gözetimsiz öğrenme** teknikleri tercih edilmiştir, çünkü veride `Class=1` örnekleri çok azdır.
-* Z-Test ile anlamlı özniteliklerin seçilmesi, model başarısını artırmada önemli rol oynamıştır.
+* This project uses **unsupervised learning** due to the rarity of fraud cases in the dataset.
+* Z-test helped select features with statistically significant differences between fraud and normal transactions.
 
-## 🧠 Geliştirici Notları
+## 🧠 Developer Notes
 
-Bu proje, sahte işlemlerin tespiti için klasik gözetimsiz öğrenme algoritmalarının potansiyelini araştırmak amacıyla hazırlanmıştır. Daha gelişmiş modeller (örneğin autoencoder veya deep SVDD) ile geliştirilebilir.
+This project demonstrates the potential of unsupervised learning methods in detecting anomalies in highly imbalanced datasets. Future improvements could involve deep learning methods such as autoencoders or deep SVDD for even better performance.
 
 ---
+
