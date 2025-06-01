@@ -63,7 +63,6 @@ The dataset used (`creditcard.csv`) contains 284,807 transactions, out of which 
 The models were evaluated based on:
 
 * **Accuracy** of predicting normal and fraud cases separately.
-* **Precision, Recall, and F1-Score** (available for further expansion).
 
 ---
 
