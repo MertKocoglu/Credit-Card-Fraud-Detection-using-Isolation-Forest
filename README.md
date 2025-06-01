@@ -1,86 +1,111 @@
 
 ---
 
-# 🕵️‍♂️ Credit Card Fraud Detection Using Unsupervised Learning
+# 💳 Credit Card Fraud Detection using Unsupervised Learning
 
-This project focuses on detecting fraudulent credit card transactions using **unsupervised machine learning** techniques. Specifically, it applies **Isolation Forest** and **Local Outlier Factor (LOF)** to identify anomalies without relying on labeled training data.
+This project focuses on detecting fraudulent credit card transactions using **unsupervised anomaly detection techniques**, particularly useful in highly imbalanced datasets. The dataset used comes from a real-world anonymized credit card transactions dataset containing both fraudulent and legitimate transactions.
 
-## 📁 Dataset
+---
 
-Source: [`creditcard.csv`](https://www.kaggle.com/datasets/mlg-ulb/creditcardfraud)
+## 📊 Dataset
 
-* Contains 284,807 transactions
-* 30 features (V1–V28 are PCA-transformed), along with `Time`, `Amount`, and `Class` (target variable)
-* Target `Class`:
+The dataset used (`creditcard.csv`) contains 284,807 transactions, out of which only 492 are fraudulent. Due to confidentiality, the features have been anonymized using PCA transformations (`V1` to `V28`). Additional features include:
 
-  * `0`: Legitimate transaction
-  * `1`: Fraudulent transaction
+* `Time`: Time elapsed since the first transaction.
+* `Amount`: Transaction amount.
+* `Class`: Target label (`0` = legitimate, `1` = fraud).
 
-## 🔍 Project Overview
+---
 
-### 1. **Data Exploration & Visualization**
+## 🛠️ Key Components
 
-* Examined class distribution (highly imbalanced: only 0.17% fraud)
-* Plotted transaction frequency by hour
-* Compared feature distributions between fraudulent and normal transactions
+### 🔍 Data Exploration & Visualization
 
-### 2. **Feature Engineering**
+* Class imbalance visualized via bar plots.
+* Temporal patterns observed by converting `Time` into hourly bins.
+* Distribution plots to understand how feature values differ between fraud and normal transactions.
 
-* Transformed `Time` and `Amount` using PCA to generate `V29` and `V30`
-* Applied Z-test to identify statistically significant features
-* Selected significant features for modeling
+### 📐 Dimensionality Reduction
 
-### 3. **Modeling**
+* Performed PCA on `Time` and `Amount` to create two new features: `V29` and `V30`.
 
-#### Isolation Forest
+### 📊 Feature Significance
 
-* **Accuracy for detecting normal transactions:** 95.78%
-* **Accuracy for detecting fraud transactions:** 86.38%
+* Z-test used to identify statistically significant features that differ between fraud and normal transactions.
+* Selected 23 key features for modeling.
 
-#### Local Outlier Factor (LOF)
+---
 
-* **Accuracy for detecting normal transactions:** 98.75%
-* **Accuracy for detecting fraud transactions:** 23.58%
+## 🚀 Anomaly Detection Models
 
-## 🛠 Libraries Used
+### 1. **Isolation Forest**
 
-* `pandas`, `numpy`, `matplotlib`, `seaborn`
-* `sklearn`: PCA, IsolationForest, LocalOutlierFactor
+* ✅ Normal Detection Accuracy: **95.78%**
+* ⚠️ Fraud Detection Accuracy: **86.38%**
 
-## 📈 Results
+### 2. **Local Outlier Factor (LOF)**
 
-* **Isolation Forest** outperformed LOF in detecting fraudulent transactions.
-* Due to class imbalance, unsupervised learning offered a valuable approach without requiring labeled training data.
+* ✅ Normal Detection Accuracy: **98.75%**
+* ⚠️ Fraud Detection Accuracy: **23.58%**
 
-## 🚀 How to Run
+### 3. **One-Class SVM**
 
-1. Clone the repository:
+* Performed a grid search on hyperparameters (`nu`, `gamma`) to optimize detection.
+* **Best Model**: `nu=0.1`, `gamma=0.1`
 
-   ```bash
-   git clone https://github.com/yourusername/credit-card-fraud-unsupervised.git
-   cd credit-card-fraud-unsupervised
-   ```
+  * ✅ Normal Accuracy: **90.00%**
+  * ⚠️ Fraud Accuracy: **90.24%**
 
-2. Install required packages:
+---
 
-   ```bash
-   pip install -r requirements.txt
-   ```
+## 🧪 Evaluation Metrics
 
-3. Run the notebook:
+The models were evaluated based on:
 
-   ```bash
-   jupyter notebook
-   ```
+* **Accuracy** of predicting normal and fraud cases separately.
+* **Precision, Recall, and F1-Score** (available for further expansion).
 
-## 📌 Notes
+---
 
-* This project uses **unsupervised learning** due to the rarity of fraud cases in the dataset.
-* Z-test helped select features with statistically significant differences between fraud and normal transactions.
+## 📦 Libraries Used
 
-## 🧠 Developer Notes
+* `pandas`, `numpy`
+* `matplotlib`, `seaborn`
+* `scikit-learn` (PCA, IsolationForest, LocalOutlierFactor, OneClassSVM)
+* `warnings`, `os`, `itertools`
 
-This project demonstrates the potential of unsupervised learning methods in detecting anomalies in highly imbalanced datasets. Future improvements could involve deep learning methods such as autoencoders or deep SVDD for even better performance.
+---
+
+## 📁 File Structure
+
+```
+.
+├── creditcard.csv           # Dataset
+├── model.ipynb              # Main analysis notebook
+├── README.md                # Project documentation
+└── .git/                    # Git tracking directory
+```
+
+---
+
+## 📈 Key Insights
+
+* Unsupervised learning can perform remarkably well in fraud detection with proper preprocessing and tuning.
+* One-Class SVM outperformed other methods with balanced accuracy on both normal and fraud classes.
+
+---
+
+## ✅ Future Improvements
+
+* Implement ensemble strategies to combine multiple anomaly detectors.
+* Evaluate with precision/recall/F1-score for comprehensive insights.
+* Use autoencoders or deep anomaly detection methods for comparison.
+
+---
+
+## 📬 Contact
+
+Feel free to reach out or fork this project to build upon it. Contributions welcome!
 
 ---
 
